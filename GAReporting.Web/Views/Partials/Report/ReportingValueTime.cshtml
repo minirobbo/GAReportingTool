@@ -1,0 +1,22 @@
+﻿@model GaData
+@using Google.Apis.Analytics.v3.Data
+@using System.Globalization
+
+
+@if (Model != null && Model.TotalsForAllResults != null && Model.TotalsForAllResults.Any())
+{
+
+    double value;
+    if (double.TryParse(Model.TotalsForAllResults.FirstOrDefault().Value, out value))
+    {
+        TimeSpan interval = TimeSpan.FromSeconds(value);
+        
+
+        <text> @string.Format("{0:00}:{1:00}:{2:00}", interval.TotalHours, interval.Minutes, interval.Seconds) </text>
+    }
+    
+}
+else
+{
+    <text>0</text>
+}

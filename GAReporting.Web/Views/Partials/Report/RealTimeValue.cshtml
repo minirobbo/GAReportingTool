@@ -1,0 +1,14 @@
+﻿@model RealtimeData
+@using Google.Apis.Analytics.v3.Data
+@using System.Globalization
+
+
+
+@if (Model != null && Model.TotalsForAllResults != null && Model.TotalsForAllResults.Any())
+{
+   <text>@Model.TotalsForAllResults.FirstOrDefault().Value</text>
+}
+else
+{
+    <text>0</text>
+}

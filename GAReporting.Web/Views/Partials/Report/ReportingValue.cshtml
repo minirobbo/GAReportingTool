@@ -1,0 +1,19 @@
+﻿@model GaData
+@using Google.Apis.Analytics.v3.Data
+@using System.Globalization
+
+
+@if (Model != null && Model.TotalsForAllResults != null && Model.TotalsForAllResults.Any())
+{
+
+    double value;
+    if (double.TryParse(Model.TotalsForAllResults.FirstOrDefault().Value, out value))
+    {
+        <text> @value.ToString("#,###.##")</text>
+    }
+
+}
+else
+{
+    <text>0</text>
+}

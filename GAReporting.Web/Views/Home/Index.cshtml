@@ -1,0 +1,76 @@
+﻿@model GAReporting.Web.Models.Analytics.AccountList
+
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>GAReportingTool</h1>
+    <p class="lead">by Comprend.</p>
+
+
+    @*<h1>
+        @Model.Name
+    </h1>*@
+
+    <h2>Accounts</h2>
+    <ul>
+        @foreach (var account in Model.AccountSummaries.OrderBy(x => x.Name))
+        {
+            <li>
+
+                @account.Name (@account.Id)
+                <ul>
+                @foreach (var webProperty in account.WebProperties)
+                {
+                    <li>
+                      @webProperty.Name (@webProperty.Id)
+                     
+                        <ul>
+                            @foreach (var profile in webProperty.Profiles)
+                            {
+                                <li>
+                                    <a href="@Url.Action("Dashboard", "Report", new
+                                        {
+                                            accountId = account.Id,
+                                            webPropertyId = webProperty.Id,
+                                            profileId = profile.Id
+                                        }, null)">
+                                    @profile.Name</a> (@profile.Id)
+                                  
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                }</ul>
+
+            </li>
+            
+        }
+    </ul>
+
+
+</div>
+
+@*<div class="row">
+        <div class="col-md-4">
+            <h2>Getting started</h2>
+            <p>
+                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+                enables a clean separation of concerns and gives you full control over markup
+                for enjoyable, agile development.
+            </p>
+            <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Get more libraries</h2>
+            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+            <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Web Hosting</h2>
+            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+            <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        </div>
+    </div>*@

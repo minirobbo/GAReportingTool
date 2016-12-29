@@ -1,0 +1,52 @@
+﻿@model GaData
+@using Google.Apis.Analytics.v3.Data
+@using System.Globalization
+
+
+
+@if (Model != null && Model.Rows != null &&  Model.Rows.Any())
+{
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            @foreach (var header in Model.ColumnHeaders)
+            {
+                <th>@header.Name</th>
+
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var rows in Model.Rows)
+        {
+            <tr>
+                @foreach (var cols in rows)
+                {
+                    <td>
+                        @{
+                            string format = "yyyyMMdd";
+                            DateTime dateTime2;
+                            if (DateTime.TryParseExact(cols, format, CultureInfo.InvariantCulture,
+                                DateTimeStyles.None, out dateTime2))
+                            {
+                                <text> @dateTime2.ToLongDateString()</text>
+                            }
+                            else
+                            {
+                                <text>  @cols</text>
+                            }
+                        }
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+  
+
+
+    </table>
+ 
+            @*<p class="pull-right">@Model.TotalsForAllResults.FirstOrDefault().Value</p>*@
+ 
+}

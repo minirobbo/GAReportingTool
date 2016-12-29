@@ -1,0 +1,331 @@
+﻿@model GAReporting.Web.Models.Analytics.Report
+@using System.Globalization;
+
+@{
+    ViewBag.title = Model.Title;
+}
+
+<div class="page-header">
+    <h1>@Model.Title <small> <a href="@Model.Webproperty.WebsiteUrl" target="_blank"> @Model.Webproperty.WebsiteUrl</a>  </small></h1>
+
+    <p>
+        <a href="@Url.Action("Realtime", "Report", new
+            {
+                accountId = Model.AccountId,
+                webPropertyId = Model.WebPropertyId,
+                profileId  = Model.ProfileId
+            }, null)">
+            Detailed Realtime report
+        </a>
+    </p>
+
+    <p>
+        <a href="@Url.Action("ViewReport", "Report", new
+            {
+                accountId = Model.AccountId,
+                webPropertyId = Model.WebPropertyId,
+                profileId  = Model.ProfileId
+            }, null)">
+            Detailed @Model.Webproperty.Name report
+        </a>
+    </p>
+
+</div>
+
+
+@{
+    var startDate = DateTime.Now.AddMonths(-1).ToString("yyyy-MM-dd");
+    var endDate = DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd");
+}
+
+
+<div class="row">
+    <div class="col-md-8">
+
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Monthly stats <small>@startDate to @endDate   </small></h2>
+            </div>
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Sessions</h3>
+                    </div>
+                    <div class="panel-body text-center text-success h1">
+                        @{
+                            Html.RenderAction("ReportingMetric", "Report", new
+                            {
+                                ProfileId = Model.ProfileId,
+                                startDate = startDate,
+                                endDate = endDate,
+                                metric = "ga:sessions",
+
+                                viewname = "ReportingValue"
+                            });
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Users</h3>
+                    </div>
+                    <div class="panel-body text-center text-success h1">
+                        @{
+                            Html.RenderAction("ReportingMetric", "Report", new
+                            {
+                                ProfileId = Model.ProfileId,
+                                startDate = startDate,
+                                endDate = endDate,
+                                metric = "ga:users",
+
+                                viewname = "ReportingValue"
+                            });
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Page Views</h3>
+                    </div>
+                    <div class="panel-body text-center text-success h1">
+                        @{
+                            Html.RenderAction("ReportingMetric", "Report", new
+                            {
+                                ProfileId = Model.ProfileId,
+                                startDate = startDate,
+                                endDate = endDate,
+                                metric = "ga:pageViews",
+
+                                viewname = "ReportingValue"
+                            });
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Sessions/User</h3>
+                    </div>
+                    <div class="panel-body text-center text-success h1">
+                        @{
+                            Html.RenderAction("ReportingMetric", "Report", new
+                            {
+                                ProfileId = Model.ProfileId,
+                                startDate = startDate,
+                                endDate = endDate,
+                                metric = "ga:sessionsPerUser",
+
+                                viewname = "ReportingValue"
+                            });
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Page views/Session</h3>
+                    </div>
+                    <div class="panel-body text-center text-success h1">
+                        @{
+                            Html.RenderAction("ReportingMetric", "Report", new
+                            {
+                                ProfileId = Model.ProfileId,
+                                startDate = startDate,
+                                endDate = endDate,
+                                metric = "ga:pageviewsPerSession",
+
+                                viewname = "ReportingValue"
+                            });
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Avg. Session Duration</h3>
+                    </div>
+                    <div class="panel-body text-center text-success h1">
+                        @{
+                            Html.RenderAction("ReportingMetric", "Report", new
+                            {
+                                ProfileId = Model.ProfileId,
+                                startDate = startDate,
+                                endDate = endDate,
+                                metric = "ga:avgSessionDuration",
+
+                                viewname = "ReportingValueTime"
+                            });
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Bounce Rate</h3>
+                    </div>
+                    <div class="panel-body text-center text-success h1">
+                        @{
+                            Html.RenderAction("ReportingMetric", "Report", new
+                            {
+                                ProfileId = Model.ProfileId,
+                                startDate = startDate,
+                                endDate = endDate,
+                                metric = "ga:bounceRate",
+
+                                viewname = "ReportingValuePercent"
+                            });
+                        }
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">% New Sessions</h3>
+                    </div>
+                    <div class="panel-body text-center text-success h1">
+                        @{
+                            Html.RenderAction("ReportingMetric", "Report", new
+                            {
+                                ProfileId = Model.ProfileId,
+                                startDate = startDate,
+                                endDate = endDate,
+                                metric = "ga:percentNewSessions",
+
+                                viewname = "ReportingValuePercent"
+                            });
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-4">
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Real-time stats</h2>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Active Users</h3>
+                    </div>
+                    <div class="panel-body text-center text-success h1">
+                        @{
+                            Html.RenderAction("RealTimeMetric", "Report", new
+                            {
+                                ProfileId = Model.ProfileId,
+                                Metric = "rt:activeUsers",
+                                viewname = "RealTimeValue"
+                            });
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Page Views</h3>
+                    </div>
+                    <div class="panel-body text-center text-success h1">
+                        @{
+                            Html.RenderAction("RealTimeMetric", "Report", new
+                            {
+                                ProfileId = Model.ProfileId,
+                                Metric = "rt:pageviews",
+                                viewname = "RealTimeValue"
+                            });
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Tracked Events</h3>
+                    </div>
+                    <div class="panel-body text-center text-success h1">
+                        @{
+                            Html.RenderAction("RealTimeMetric", "Report", new
+                            {
+                                ProfileId = Model.ProfileId,
+                                Metric = "rt:totalEvents",
+                                viewname = "RealTimeValue"
+                            });
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Top 5's</h2>
+    </div>
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Tracked Events</h3>
+            </div>
+            <div class="panel-body ">
+                @*@{
+                    Html.RenderAction("ReportingMetric", "Report", new
+                    {
+                        rofileId = Model.ProfileId,
+                        startDate = startDate,
+                        endDate = endDate,
+                        metric = "ga:pageviews",
+                        Dimensions = "ga:pagePath",
+                        maxResults = 5
+                    });
+                }*@
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+@*@{
+        Html.RenderAction("ReportingMetric", "Report", new
+        {
+            ProfileId = Model.ProfileId,
+            startDate = DateTime.Now.AddMonths(-1).ToString("yyyy-MM-dd"),
+            endDate = DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd"),
+            metric = "ga:sessions,ga:bounces",
+            Dimensions = "ga:date"
+        });
+    }*@
+
+
+
